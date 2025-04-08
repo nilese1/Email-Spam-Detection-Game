@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "game",
     "leaderboard",
-    "login",
+    "authentication",
     "tutorial",
     "django.contrib.admin",
     "django.contrib.auth",

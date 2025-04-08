@@ -1,15 +1,17 @@
 from typing import final
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
 # The choices for what different difficulties there can be
 # Other choices will throw an ValidationError if other values attempted to be saved
 # in the format (actual name, human readable name)
 DIFFICULTY_CHOICES = [("e", "Easy"), ("m", "Medium"), ("h", "Hard")]
 
+
 @final
-class User(AbstractUser):
-    isAdmin = models.BooleanField(default=false)
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    isAdmin = models.BooleanField(default=False)
     highScore = models.IntegerField(default=0)
 
     def update_score(self, new_score):
@@ -39,7 +41,7 @@ class Game(models.Model):
     def start(self):
         """Starts the game."""
         # Placeholder comment
-        print("Game started at level: ", self.level)\
+        print("Game started at level: ", self.level)
 
     def pause(self):
         """Pauses the game."""
@@ -49,6 +51,7 @@ class Game(models.Model):
     def __str__(self):
         return f"Game Level {self.level}"
 
+
 @final
 class Tutorial(Game):
     instructions = models.TextField()
@@ -56,11 +59,14 @@ class Tutorial(Game):
     def __str__(self):
         return f"Tutorial for Level {self.level}"
 
+
 @final
 class Score(models.Model):
     value = models.FloatField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='scores', null=True, blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="scores", null=True, blank=True
+    )
 
     def updateScore(self, newValue):
         """Update score value and timestamp."""
