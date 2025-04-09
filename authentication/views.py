@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 # Create your views here.
 # handles the account creation page
 class userRegistration(FormView):
-    template_name = "registration.html"
+    template_name = "authentication/registration.html"
     form_class = UserSignupForm
     success_url = reverse_lazy("authentication:login")
 
@@ -19,7 +19,7 @@ class userRegistration(FormView):
 
 # handles the login page
 class userLogin(LoginView):
-    template_name = "login.html"
+    template_name = "authentication/login.html"
     form_class = AuthenticationForm
     success_url = reverse_lazy("game")
 
@@ -28,5 +28,5 @@ class userLogin(LoginView):
 
 
 class userLogout(LogoutView):
-    template_name = "logout.html"
+    template_name = "authentication/logout.html"
 
