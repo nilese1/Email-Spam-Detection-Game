@@ -130,7 +130,7 @@ def create_game_view(request):
             new_game.end_time = None
             new_game.save()
             # Optionally, redirect to a game interface or pass new_game to a controller
-            return redirect('game_detail', game_id=new_game.id)
+            return redirect('game:game_detail', game_id=new_game.id)
     else:
         form = GameForm()
     return render(request, 'game/start_game.html', {'form': form})
