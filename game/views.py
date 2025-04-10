@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.http import HttpResponse
 from .models import Game, Tutorial, Score, Email, User
+from django.contrib.auth.decorators import login_required
+from .forms import GameForm
+from django.utils import timezone
 
 
 # --- GameController: encapsulates game related operations ---
@@ -112,3 +115,22 @@ def modify_email_view(request, game_id, email_id):
         "content": "Updated content for spam email detection game.",
     }
     return controller.modify_email(email_id, **kwargs)
+
+
+@login_required
+def create_game_view(request):
+    if request.method == 'POST':
+        form = GameForm(request.POST)
+        if form.is_valid():
+            new_game = form.save(commit=False)
+            new_game.user = request.user
+            new_game.level = 1
+            new_game.score = 0
+            new_game.start_time = timezone.now()
+            new_game.end_time = None
+            new_game.save()
+            # Optionally, redirect to a game interface or pass new_game to a controller
+            return redirect('game_detail', game_id=new_game.id)
+    else:
+        form = GameForm()
+    return render(request, 'game/start_game.html', {'form': form})
