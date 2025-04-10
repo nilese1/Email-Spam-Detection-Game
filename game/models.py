@@ -1,6 +1,7 @@
 from typing import final
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # The choices for what different difficulties there can be
 # Other choices will throw an ValidationError if other values attempted to be saved
@@ -22,8 +23,14 @@ class Profile(models.Model):
 
     def play_game(self):
         """Start a game session."""
-        # Placeholder comment
-        pass
+        new_game = Game.objects.create(
+            user=self.user,
+            level=1,
+            difficulty_level="e",
+            score=0,
+            start_time=timezone.now()
+        )
+        return new_game
 
     def __str__(self):
         return self.username
@@ -40,13 +47,17 @@ class Game(models.Model):
 
     def start(self):
         """Starts the game."""
-        # Placeholder comment
+        self.start_time = timezone.now()
+        self.end_time = None
+        self.save()
         print("Game started at level: ", self.level)
+        return
 
     def pause(self):
         """Pauses the game."""
-        # Placeholder comment
+        self.end_time = timezone.now()
         print("Game paused.")
+        return
 
     def __str__(self):
         return f"Game Level {self.level}"
