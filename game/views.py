@@ -133,4 +133,4 @@ def create_game_view(request):
             return redirect('game:game_detail', game_id=new_game.id)
     else:
         form = GameForm()
-    return render(request, 'game/start_game.html', {'form': form})
+    return render(request, 'start_game.html', {'form': form})
