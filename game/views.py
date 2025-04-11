@@ -1,7 +1,18 @@
+from random import random
+from django.forms.widgets import static
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.http import HttpResponse
-from .models import Game, Tutorial, Score, Email, User
+from .models import (
+    DIFFICULTY_SCORE,
+    Game,
+    GameEmail,
+    Tutorial,
+    Score,
+    Email,
+    User,
+    DIFFICULTY_CHOICES,
+)
 from django.contrib.auth.decorators import login_required
 from .forms import GameForm
 from django.utils import timezone
@@ -44,6 +55,62 @@ class GameController:
             return HttpResponse("Email modified!")
         except Email.DoesNotExist:
             return HttpResponse("Email not found.", status=404)
+
+    @staticmethod
+    def create_game_email(game, email, level):
+        game_email = GameEmail(game_id=game.id, email_id=email.id, level=level)
+        game_email.save()
+        return game_email
+
+    @staticmethod
+    def get_emails_with_selected_difficulty(difficulty, num_emails):
+        all_emails_with_difficulty = Email.objects.filter(difficulty_level=difficulty)
+
+        # ordering by random is slower but more readable than a for loop
+        # db is small so it shouldn't matter
+        random_emails_with_difficulty = all_emails_with_difficulty.order_by("?")[
+            :num_emails
+        ]
+
+        return random_emails_with_difficulty
+
+    @staticmethod
+    def create_game_from_form(form, request):
+        # create game object from difficulty from form
+        new_game = form.save(commit=False)
+        new_game.user = request.user
+        new_game.level = 1
+        new_game.score = 0
+        new_game.start_time = timezone.now()
+        new_game.end_time = None
+        new_game.save()
+
+        # add emails (GameEmails) based on difficulty
+        # using 5 as a placeholder value, will define number of emails from difficulty later
+        emails = GameController.get_emails_with_selected_difficulty(
+            new_game.difficulty_level, 5
+        )
+        print(emails)
+        for i, email in enumerate(emails):
+            # i + 1 because i is 0-indexed and level is 1-indexed
+            GameController.create_game_email(new_game, email, i + 1)
+        return new_game
+
+    @staticmethod
+    def is_selection_correct(email, user_selection):
+        user_selected_spam_correctly = email.spam_indicator and user_selection == "spam"
+        user_selected_notspam_correctly = (
+            not email.spam_indicator and user_selection == "notspam"
+        )
+        return user_selected_notspam_correctly or user_selected_spam_correctly
+
+    @staticmethod
+    def get_score_from_selection(email, user_selection):
+        difficulty = email.difficulty_level
+        if GameController.is_selection_correct(email, user_selection):
+            return DIFFICULTY_SCORE[difficulty]
+
+        return 0
 
 
 # --- AuthController: handles login and logout operations ---
@@ -119,18 +186,41 @@ def modify_email_view(request, game_id, email_id):
 
 @login_required
 def create_game_view(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = GameForm(request.POST)
         if form.is_valid():
-            new_game = form.save(commit=False)
-            new_game.user = request.user
-            new_game.level = 1
-            new_game.score = 0
-            new_game.start_time = timezone.now()
-            new_game.end_time = None
-            new_game.save()
-            # Optionally, redirect to a game interface or pass new_game to a controller
-            return redirect('game:game_detail', game_id=new_game.id)
+            new_game = GameController.create_game_from_form(form, request)
+            return redirect("game:play_game", game_id=new_game.pk)
     else:
         form = GameForm()
-    return render(request, 'start_game.html', {'form': form})
+    return render(request, "game/start_game.html", {"form": form})
+
+
+@login_required
+def play_game_view(request, game_id):
+    context = {}
+    game = Game.objects.get(id=game_id)
+    try:
+        game_email = GameEmail.objects.get(game=game, level=game.level)
+    except GameEmail.DoesNotExist:
+        return redirect("game:game_score", game_id=game_id)
+    email = game_email.email
+    context["email"] = email
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+        score_to_add = GameController.get_score_from_selection(email, action)
+        game.level = game.level + 1
+        game.score = game.score + score_to_add
+        game.save()
+        return redirect("game:play_game", game_id=game_id)
+
+    return render(request, "game/game_detail.html", context)
+
+
+@login_required
+def game_score_view(request, game_id):
+    context = {}
+    context["game"] = Game.objects.get(pk=game_id)
+
+    return render(request, "game/game_end.html", context)

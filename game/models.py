@@ -8,6 +8,8 @@ from django.utils import timezone
 # in the format (actual name, human readable name)
 DIFFICULTY_CHOICES = [("e", "Easy"), ("m", "Medium"), ("h", "Hard")]
 
+DIFFICULTY_SCORE = {"e": 100, "m": 300, "h": 500}
+
 
 @final
 class Profile(models.Model):
@@ -28,7 +30,7 @@ class Profile(models.Model):
             level=1,
             difficulty_level="e",
             score=0,
-            start_time=timezone.now()
+            start_time=timezone.now(),
         )
         return new_game
 
@@ -110,6 +112,7 @@ class Email(models.Model):
 class GameEmail(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     email = models.ForeignKey(Email, on_delete=models.CASCADE)
+    level = models.IntegerField(default=1)
 
 
 @final

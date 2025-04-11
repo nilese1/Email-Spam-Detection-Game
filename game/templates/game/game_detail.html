@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="email" class="email{{ forloop.counter }}">
+        <fieldset>
+            <fieldset>
+                sender: {{ email.sender }}
+            </fieldset>
+            <fieldset>
+                subject: {{ email.subject }}
+            </fieldset>
+            <pre>
+                    {{ email.content }}
+                </pre>
+        </fieldset>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button id="spambutton" type="submit" name="action" value="spam">Spam</button>
+        <button id="notspambutton" type="submit" name="action" value="not_spam">Not Spam</button>
+    </form>
+{% endblock %}
