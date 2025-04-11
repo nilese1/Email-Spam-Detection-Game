@@ -22,4 +22,5 @@ urlpatterns = [
     path("game/", include("game.urls")),
     path("admin/", admin.site.urls),
     path("authentication/", include("authentication.urls")),
+    path("leaderboard/", include("leaderboard.urls")),
 ]

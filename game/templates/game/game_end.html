@@ -1,2 +1,6 @@
 {% extends 'base.html' %}
-{% block content %}<p>Game ended score is {{ game.score }}</p>{% endblock %}
+{% block content %}<p>Game ended score is {{ game.score }}</p>
+<a href="/leaderboard">
+    <button type="button">Leaderboard</button>
+</a> 
+{% endblock %}
