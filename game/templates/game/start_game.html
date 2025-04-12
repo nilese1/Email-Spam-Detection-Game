@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Start Game</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <h1>Select Game Difficulty</h1>
     <form method="post">
         {% csrf_token %}
@@ -11,5 +7,4 @@
         <button type="submit">Start Game</button>
         <button onclick="location.href='/tutorial/topics'">Tutorials & Information</button>
     </form>
-</body>
-</html>
+{% endblock %}
