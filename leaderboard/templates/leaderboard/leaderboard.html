@@ -2,4 +2,5 @@
 {% block content %}
     <h2>Leaderboard</h2>
     {% for game in top_games %}<li>{{ game.user }}: {{ game.score }}points</li>{% endfor %}
+    <button onclick="location.href='/game/create/'">Start a new game</button>
 {% endblock %}

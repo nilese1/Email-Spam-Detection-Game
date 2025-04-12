@@ -1,1 +1,9 @@
-</p>this is what happens when you select a topic</p>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ topic.title }}</h1>
+ <div>
+    {{ topic.description|linebreaks }}
+ </div>
+ <button onclick="location.href='/tutorial/topics/'">Back</button>
+{% endblock %}
