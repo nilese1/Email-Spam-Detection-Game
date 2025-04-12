@@ -34,3 +34,14 @@ body {
 .nav-links a:hover {
   color: #ffcc00;
 }
+
+button {
+  background-color: #2f4f9f;
+  color: white;
+  padding: 5px 15px;
+  font-size: 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  width: 8rem;
+  height: 3rem;
+}
