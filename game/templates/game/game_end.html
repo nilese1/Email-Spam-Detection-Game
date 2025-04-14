@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
-{% block content %}<p>Game ended score is {{ game.score }}</p>
-<a href="/leaderboard">
-    <button type="button">Leaderboard</button>
-</a> 
+
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href = "{% static 'game/css/style.css'%}">
+{% endblock %}
+
+{% block content %}
+
+<div class="difficulty-selection">
+    <p>Game ended score is {{ game.score }}</p>
+    <a href="/leaderboard">
+        <button type="button">Leaderboard</button>
+    </a> 
+</div>
 {% endblock %}
