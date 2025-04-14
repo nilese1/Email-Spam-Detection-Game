@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'leaderboard/css/score.css' %}">
+{% endblock %}
+
 {% block content %}
     <h2>Leaderboard</h2>
-    {% for game in top_games %}<li>{{ game.user }}: {{ game.score }}points</li>{% endfor %}
-    <button onclick="location.href='/game/create/'">Start a new game</button>
+    <div class="leaderboard-container">
+        <ul class="leaderboard-list">
+            {% for game in top_games %}<li>{{ game.user }}: {{ game.score }}points</li>{% endfor %}
+        </ul>
+    </div>
+    <div class = "button-container">
+        <button onclick="location.href='/game/create/'">Start a new game</button>
+        <button onclick="location.href='/tutorial/topics'">Tutorials & Information</button>
+    </div>
 {% endblock %}
