@@ -1,0 +1,40 @@
+h2{
+    width: 300px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 9px;
+    color:#ffffff;
+    text-align: center;
+    margin: 20px auto;
+    background-color: #2f4f9f;
+}
+
+.leaderboard-container {
+    width: 300px;
+    height: 300px;
+    border: 2px solid black;
+    border-radius: 9px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fbfcae;
+    overflow-y: auto;
+
+}
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-list li {
+    display: flex;
+    border: 1px solid black;
+    justify-content: space-between;
+    padding: 5px 0;
+    
+}
+
+.button-container {
+    text-align: center;
+    margin: 2rem;
+}
