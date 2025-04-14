@@ -1,0 +1,75 @@
+.email {
+  display: flex;
+  max-width: 1200px;
+  margin: 120px auto;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  justify-content: space-between;
+  min-height: 600px;
+}
+
+.email-info {
+  width: 100%;
+}
+
+.misc-info {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.seperator {
+  min-width: 1px;
+  width: 1px;
+  background-color: #ccc;
+  margin: 0 16px;
+}
+
+.email-content {
+  justify-items: left;
+  min-width: 6rem;
+  min-height: 6rem;
+  padding: 0.5rem;
+}
+
+fieldset {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+button {
+  scale: unset;
+}
+.spambutton {
+  background-color: #a52222;
+  margin-bottom: 1rem;
+}
+
+.notspambutton {
+  background-color: #22a522;
+}
+
+.descriptor {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+form {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.score {
+  display: flex;
+  font-size: 2rem;
+  justify-content: center;
+}
+
+.score-label {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}

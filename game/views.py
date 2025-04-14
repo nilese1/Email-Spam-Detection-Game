@@ -206,6 +206,7 @@ def play_game_view(request, game_id):
         return redirect("game:game_score", game_id=game_id)
     email = game_email.email
     context["email"] = email
+    context["game"] = game
 
     if request.method == "POST":
         action = request.POST.get("action")

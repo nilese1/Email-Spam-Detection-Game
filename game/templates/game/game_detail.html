@@ -1,21 +1,37 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href = "{% static 'game/css/style.css'%}">
+{% endblock %}
+
+
 {% block content %}
     <div id="email" class="email{{ forloop.counter }}">
-        <fieldset>
-            <fieldset>
-                sender: {{ email.sender }}
-            </fieldset>
-            <fieldset>
-                subject: {{ email.subject }}
-            </fieldset>
-            <pre>
-                    {{ email.content }}
-                </pre>
-        </fieldset>
+        <div class="email-info">
+                <fieldset>
+            <span class="descriptor">Sender:</span> {{ email.sender }}
+                </fieldset>
+                <fieldset>
+            <span class="descriptor">Subject:</span> {{ email.subject }}
+                </fieldset>
+                <p class="email-content">
+                        {{ email.content }}
+                </p>
+        </div>
+        <div class="seperator"></div>
+        <div class="misc-info">
+            <div class="score">
+                <span class="score-label">Score:</span>
+                <span class="score-amount"> {{game.score}}</span>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <button class="spambutton" type="submit" name="action" value="spam">Spam</button>
+                <button class="notspambutton" type="submit" name="action" value="not_spam">Not Spam</button>
+            </form>
+        </div>
     </div>
-    <form method="post">
-        {% csrf_token %}
-        <button id="spambutton" type="submit" name="action" value="spam">Spam</button>
-        <button id="notspambutton" type="submit" name="action" value="not_spam">Not Spam</button>
-    </form>
 {% endblock %}
