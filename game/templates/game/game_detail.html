@@ -27,7 +27,7 @@
                 <span class="score-label">Score:</span>
                 <span class="score-amount"> {{game.score}}</span>
             </div>
-            <form method="post">
+            <form method="post" class="spam-button-form">
                 {% csrf_token %}
                 <button class="spambutton" type="submit" name="action" value="spam">Spam</button>
                 <button class="notspambutton" type="submit" name="action" value="not_spam">Not Spam</button>

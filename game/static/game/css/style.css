@@ -56,7 +56,7 @@ button {
   margin-right: 0.5rem;
 }
 
-form {
+.spam-button-form {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
@@ -72,4 +72,40 @@ form {
 .score-label {
   font-weight: bold;
   margin-right: 0.5rem;
+}
+
+.difficulty-selection {
+  display: flex;
+  max-width: 600px;
+  margin: 120px auto;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  flex-direction: column;
+}
+
+.difficulty-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.difficulty-header {
+  justify-content: center;
+}
+
+p {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+select {
+  padding: 0.5rem;
+}
+
+.difficulty-form {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }

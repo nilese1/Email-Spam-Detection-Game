@@ -1,10 +1,23 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href = "{% static 'game/css/style.css'%}">
+{% endblock %}
+
+
 {% block content %}
-    <h1>Select Game Difficulty</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Start Game</button>
-        <button onclick="location.href='/tutorial/topics'">Tutorials & Information</button>
-    </form>
+    <div class="difficulty-selection">
+        <h1 class="difficulty-header">Select Game Difficulty</h1>
+        <form method="post" class="difficulty-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="difficulty-buttons">
+                <button type="submit">Start Game</button>
+                <button onclick="location.href='/tutorial/topics'">Tutorials & Information</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
