@@ -12,10 +12,8 @@ h1 {
 
 p {
     text-align: center;
-    border: 1px black;
-    border-radius: 10px;
-    width: 1000px;
-    height: 45px;
+    width: 510px;
+    height: 80px;
     margin: 20px auto;
 
 }
