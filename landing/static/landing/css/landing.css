@@ -1,0 +1,35 @@
+h1 {
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 60px;
+    background-color: #2f4f9f;
+    color: #ffffff;
+    margin: 20px auto;
+    
+}
+
+p {
+    text-align: center;
+    border: 1px black;
+    border-radius: 10px;
+    width: 1000px;
+    height: 45px;
+    margin: 20px auto;
+
+}
+
+.button-container a {
+   display: inline-block;
+   margin: 0 10px; 
+}
+
+.button-container {
+    text-align: center;
+    margin: 2rem;
+}
+
+.button-container button {
+    vertical-align: middle;
+}

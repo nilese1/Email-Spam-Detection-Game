@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'landing/css/recent.css' %}">
+{% endblock %}
 {% block content %}
-    <h2>Recent Games</h2>
+    <h1>Recent Games</h1>
+    <div class="recent-list">
     {% for game in games %}
         <li>
-            <span class="date-label">Date:</span><span class="date-value">{{ game.start_time|date:"m/d/y, g:ia" }}</span>
-            <span class="score-label">Score:</span><span class="score-value">{{ game.score }} points</span>
+            <span class="date-label">Date: </span><span class="date-value">{{ game.start_time|date:"m/d/y, g:ia" }}</span>
+            <span class="score-label">Score: </span><span class="score-value">{{ game.score }} points</span>
         </li>
     {% endfor %}
+</div>
+<div class ="button-container">
+    <a href="{% url 'game:create_game' %}">
+        <button type="button">Start a New Game</button>
+    </a>
+</div>
 {% endblock %}

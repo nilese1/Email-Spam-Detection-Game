@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'landing/css/landing.css' %}">
+{% endblock %}
+
 {% block content %}
-    <!--I love chatGPT-->
+    <h1>Welcome!</h1>
     <p>
         Can you spot the spam before it scams?
         Play head-to-head or solo as you dive into a chaotic inbox full of legit messages and shady spam. Trust your gut—or get fooled!
     </p>
+    <div class ="button-container">
     <a href="{% url 'game:create_game' %}">
         <button type="button">Create Game</button>
     </a>
     <a href="{% url 'landing:recent_games' %}">
         <button type="button">View Recent Games</button>
     </a>
+</div>
 {% endblock %}
