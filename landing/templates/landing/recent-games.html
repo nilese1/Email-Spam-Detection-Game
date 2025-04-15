@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Recent Games</h2>
+    {% for game in games %}
+        <li>
+            <span class="date-label">Date:</span><span class="date-value">{{ game.start_time|date:"m/d/y, g:ia" }}</span>
+            <span class="score-label">Score:</span><span class="score-value">{{ game.score }} points</span>
+        </li>
+    {% endfor %}
+{% endblock %}

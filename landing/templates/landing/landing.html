@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!--I love chatGPT-->
+    <p>
+        Can you spot the spam before it scams?
+        Play head-to-head or solo as you dive into a chaotic inbox full of legit messages and shady spam. Trust your gut—or get fooled!
+    </p>
+    <a href="{% url 'game:create_game' %}">
+        <button type="button">Create Game</button>
+    </a>
+    <a href="{% url 'landing:recent_games' %}">
+        <button type="button">View Recent Games</button>
+    </a>
+{% endblock %}
