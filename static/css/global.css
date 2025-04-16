@@ -19,9 +19,16 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
+.logo a {
+  color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
+  text-decoration: none;
+}
+
+.logo a:hover {
+  color: #ffcc00;
+  transition-duration: 300ms;
 }
 
 .nav-links a {
@@ -33,6 +40,7 @@ body {
 
 .nav-links a:hover {
   color: #ffcc00;
+  transition-duration: 300ms;
 }
 
 button {
@@ -44,4 +52,9 @@ button {
   cursor: pointer;
   width: 8rem;
   height: 3rem;
+}
+
+button:hover {
+  color: #ffcc00;
+  transition-duration: 300ms;
 }

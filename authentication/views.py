@@ -1,8 +1,9 @@
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, HttpResponseRedirect
 from .forms import UserSignupForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import reverse_lazy
+from django.contrib.auth import logout
+from django.urls import reverse, reverse_lazy
 
 
 # Create your views here.
@@ -27,6 +28,6 @@ class userLogin(LoginView):
         return super().form_valid(form)
 
 
-class userLogout(LogoutView):
-    template_name = "authentication/logout.html"
-
+def userLogout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("landing:landing"))
