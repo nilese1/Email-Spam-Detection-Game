@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href = "{% static 'game/css/style.css' %}">
+{% endblock %}
+{% block content %}
+    <div id="email" class="email{{ forloop.counter }}">
+        <div class="email-info">
+            <fieldset>
+                <span class="descriptor">Sender:</span> {{ email.sender }}
+            </fieldset>
+            <fieldset>
+                <span class="descriptor">Subject:</span> {{ email.subject }}
+            </fieldset>
+            <p class="email-content">{{ email.content }}</p>
+        </div>
+        <div class="seperator"></div>
+        <div class="misc-info">
+            <div class="score">
+                <span class="score-label">Score:</span>
+                <span class="score-amount">{{ game.score }}</span>
+            </div>
+            {% if is_question_correct %}
+                <p class="correct-symbol">Your answer was correct ✅</p>
+            {% else %}
+                <p class="incorrect-symbol">You answer was incorrect ❌</p>
+            {% endif %}
+            <a href="{% url 'game:play_game' game.id %}">
+                <button type="button">Next Question</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

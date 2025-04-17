@@ -214,9 +214,35 @@ def play_game_view(request, game_id):
         game.level = game.level + 1
         game.score = game.score + score_to_add
         game.save()
-        return redirect("game:play_game", game_id=game_id)
+
+        # byproduct of my shitty code I don't wanna fix and would rather hack it to death
+        # you could ask "why not just make another function???" It's because that function would
+        # shorter than this comment and I'm a fucking psycho!!!!
+        is_question_correct = score_to_add > 0
+        return redirect(
+            "game:next_question",
+            game_id=game_id,
+            email_id=email.id,
+            # Django has no url tag for booleans so int will have to do
+            is_question_correct=int(is_question_correct),
+        )
 
     return render(request, "game/game_detail.html", context)
+
+
+# putting boolean in the url for is_question_correct is a questionable choice...
+# but I don't care
+@login_required()
+def next_question_view(request, email_id, game_id, is_question_correct):
+    context = {}
+    game = Game.objects.get(id=game_id)
+    email = Email.objects.get(id=email_id)
+
+    context["game"] = game
+    context["email"] = email
+    context["is_question_correct"] = int(is_question_correct)
+
+    return render(request, "game/question_result.html", context)
 
 
 @login_required
