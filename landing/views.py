@@ -16,7 +16,7 @@ def recent_games_view(request):
     context = {}
 
     number_of_games = 10
-    users_games = Game.objects.filter(user=request.user).order_by("start_time")
+    users_games = Game.objects.filter(user=request.user).order_by("-start_time")
 
     context["games"] = users_games[:number_of_games]
 
