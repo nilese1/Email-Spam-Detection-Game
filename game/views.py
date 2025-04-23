@@ -100,7 +100,7 @@ class GameController:
     def is_selection_correct(email, user_selection):
         user_selected_spam_correctly = email.spam_indicator and user_selection == "spam"
         user_selected_notspam_correctly = (
-            not email.spam_indicator and user_selection == "notspam"
+            not email.spam_indicator and user_selection == "not_spam"
         )
         return user_selected_notspam_correctly or user_selected_spam_correctly
 
